@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIS Beauty | 일광 속눈썹·증모·펌 전문</title>
+    <style>
+      :root {
+          --main-color: #A47864; /* 2026 트렌드 컬러: 모카 마우스 (차분한 브라운) */
+          --bg-color: #Fdfaf8;
+          --text-color: #333;
+      }
+      body { font-family: 'Pretendard', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
+      
+      /* 네비게이션 */
+      nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+      .logo { font-size: 1.5rem; font-weight: bold; color: var(--main-color); letter-spacing: 2px; }
+      .nav-links a { text-decoration: none; color: #666; margin-left: 20px; font-size: 0.9rem; }
+
+      /* 히로 섹션 */
+      .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: #fff; }
+      .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+      .btn-booking { background: var(--main-color); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(164, 120, 100, 0.4); }
+      .btn-booking:hover { transform: translateY(-3px); background: #8e6654; }
+
+      /* 리뷰 섹션 */
+      .reviews { padding: 80px 5%; text-align: center; background: #fff; }
+      .review-container { display: flex; gap: 20px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
+      .review-card { min-width: 300px; background: var(--bg-color); padding: 30px; border-radius: 15px; text-align: left; position: relative; }
+      .stars { color: #FFD700; margin-bottom: 10px; }
+      .review-text { font-style: italic; font-size: 0.95rem; margin-bottom: 15px; }
+      .reviewer { font-weight: bold; font-size: 0.85rem; color: var(--main-color); }
+
+        /* 리뷰 섹션 전체 디자인 */
+        .reviews { 
+            padding: 80px 5%; 
+            text-align: center; 
+            background: #fff; 
+        }
+
+        /* 3컬럼 그리드 설정 */
+        .review-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); /* 정확히 3등분 */
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 40px auto 0;
+        }
+
+        .review-card { 
+            background: #fdfaf8; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: left; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #eee;
+        }
+
+        .stars { color: #FFD700; margin-bottom: 12px; font-size: 1.1rem; }
+        .review-text { font-size: 0.95rem; line-height: 1.7; color: #555; height: 80px; overflow: hidden; }
+        .reviewer { font-weight: bold; margin-top: 15px; display: block; color: #A47864; }
+
+        /* 모바일 대응: 화면이 작아지면 1열로 변경 */
+        @media (max-width: 900px) {
+            .review-grid { grid-template-columns: 1fr; }
+        }
+
+      /* 예약 섹션 */
+      .booking-info { padding: 80px 5%; text-align: center; }
+      .booking-info h2 { margin-bottom: 30px; }
+
+      footer { background: #333; color: #fff; padding: 40px 5%; text-align: center; font-size: 0.8rem; }
+  
+      /* 예약 섹션 디자인 강화 */
+      .booking-section {
+        background: #fdfaf8;
+        padding: 100px 5%;
+        text-align: center;
+      }
+
+      /* 플로팅 예약 버튼 (화면 오른쪽 하단 고정) */
+      .floating-btn {
+          position: fixed;
+          bottom: 30px;
+          right: 30px;
+          background: #FEE500; /* 카카오톡 노란색 */
+          color: #3c1e1e;
+          padding: 15px 25px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-weight: bold;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: 0.3s;
+      }
+      .floating-btn:hover { transform: scale(1.05); }
+
+      /* 인스타그램 & 위치 섹션 디자인 */
+      .info-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr; /* 왼쪽: 인스타 피드, 오른쪽: 오시는 길 */
+          gap: 40px;
+          padding: 80px 5%;
+          max-width: 1200px;
+          margin: 0 auto;
+      }
+
+      .insta-preview {
+          text-align: left;
+      }
+      .insta-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+      }
+      .insta-id { font-weight: bold; color: #333; }
+      
+      /* 인스타 바둑판 이미지 (더미 이미지 6개) */
+      .insta-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 5px;
+      }
+      .insta-grid div {
+          background: #eee;
+          aspect-ratio: 1 / 1; /* 정사각형 유지 */
+          background-size: cover;
+          background-position: center;
+      }
+
+      .location-info {
+          text-align: left;
+          background: #fff;
+          padding: 30px;
+          border-radius: 15px;
+          border: 1px solid #f0f0f0;
+      }
+      .location-info h3 { color: #A47864; margin-top: 0; }
+      .shop-details { list-style: none; padding: 0; line-height: 2; color: #666; }
+      .shop-details strong { color: #333; }
+
+      /* 모바일에서는 한 줄씩 나오게 */
+      @media (max-width: 850px) {
+          .info-container { grid-template-columns: 1fr; }
+      }
+
+      /* 지도 및 상세 위치 스타일 */
+      .map-section {
+          margin-top: 20px;
+          padding: 20px;
+          background: #fdfaf8;
+          border-radius: 12px;
+          border: 1px dashed #A47864;
+      }
+      .btn-naver-map {
+          display: block;
+          background: #03C75A; /* 네이버 브랜드 컬러 */
+          color: #fff;
+          padding: 12px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: bold;
+          margin-top: 15px;
+          transition: 0.3s;
+      }
+      .btn-naver-map:hover { background: #02b351; }
+
+      /* 예약 안내 모달(팝업) 스타일 */
+      .modal {
+          display: none; /* 기본은 숨김 */
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.6);
+          z-index: 10000;
+          justify-content: center;
+          align-items: center;
+      }
+      .modal-content {
+          background: #fff;
+          padding: 40px;
+          border-radius: 20px;
+          width: 90%;
+          max-width: 450px;
+          text-align: center;
+          position: relative;
+      }
+      .close-modal {
+          position: absolute;
+          top: 15px; right: 20px;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #999;
+      }
+      .modal-content h3 { color: #A47864; margin-bottom: 10px; }
+      .booking-steps { text-align: left; margin: 20px 0; font-size: 0.95rem; }
+      .booking-steps li { margin-bottom: 10px; color: #666; }
+
+      /* 버튼 스타일 통일 */
+      .btn-kakao { background: #FEE500; color: #3c1e1e; padding: 15px; border-radius: 10px; display: block; text-decoration: none; font-weight: bold; margin-bottom: 10px; }
+      .btn-insta { background: #E1306C; color: #fff; padding: 15px; border-radius: 10px; display: block; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">BIS BEAUTY</div>
+    <div class="nav-links">
+        <a href="#reviews">후기</a>
+        <a href="#booking">예약문의</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>내 눈에 가장 잘 어울리는 한 끗</h1>
+    <p>속눈썹 연장 | 눈썹문신 | 1:1 맞춤 디자인</p>
+    <br>
+    <a href="https://calendly.com/your-link" class="btn-booking">실시간 예약하기</a>
+</section>
+
+
+<section class="reviews" id="reviews">
+  <h2>Real Reviews</h2>
+  <p>Google Maps의 실제 고객 후기를 확인하세요</p>
+
+  <div class="review-grid">
+      <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"오클랜드에서 속눈썹 연장 정착할 곳을 찾았어요! 유지력이 정말 좋아요."</p>
+          <span class="reviewer">Google User - H***</span>
+      </div>
+      <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"눈썹 문신 고민하다가 왔는데 디자인을 너무 세련되게 잡아주셔서 만족합니다."</p>
+          <span class="reviewer">Google User - M***</span>
+      </div>
+      <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"매장이 정말 깔끔하고 원장님이 친절하세요. 친구들에게도 추천 중입니다!"</p>
+          <span class="reviewer">Google User - D***</span>
+      </div>
+  </div>
+
+</section>
+
+<section class="info-container" id="booking">
+    <div class="insta-preview">
+        <div class="insta-header">
+            <strong>📸 @beauty_is_sunny</strong>
+            <span style="font-size: 0.8rem; color: #999;">팔로워 77 | 팔로잉 84</span>
+        </div>
+        <div class="insta-grid">
+            <div style="background-image: url('https://via.placeholder.com/300?text=Lash+1')"></div>
+            <div style="background-image: url('https://via.placeholder.com/300?text=Lash+2')"></div>
+            <div style="background-image: url('https://via.placeholder.com/300?text=Lash+3')"></div>
+            <div style="background-image: url('https://via.placeholder.com/300?text=Brows+1')"></div>
+            <div style="background-image: url('https://via.placeholder.com/300?text=Brows+2')"></div>
+            <div style="background-image: url('https://via.placeholder.com/300?text=Brows+3')"></div>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 10px; color: #888;">* 최신 시술 사진은 인스타그램에서 확인하세요.</p>
+    </div>
+
+    <div class="location-info">
+      <h3>Location & Contact</h3>
+      <p><strong>뷰티is써니 (Beauty is Sunny)</strong></p>
+      
+      <div class="map-section">
+          <p>📍 <strong>주소:</strong> 부산 기장군 일광읍 해빛6로 105<br> (이지더원 2차 포레온 상가 B110호)</p>
+          <p style="font-size: 0.85rem; color: #777;">* 상가 주차장 이용 가능합니다.</p>
+          
+          <a href="https://map.naver.com/v5/search/일광이지더원2차포레온" target="_blank" class="btn-naver-map">
+              📍 네이버 지도로 길찾기
+          </a>
+      </div>
+
+      <ul class="shop-details" style="margin-top:20px;">
+          <li>✨ <strong>전문분야:</strong> 속눈썹 연장, 증모, 펌 전문</li>
+          <li>📞 <strong>예약문의:</strong> 010.3926.0486</li>
+          <li>⏰ <strong>운영:</strong> 100% 사전 예약제</li>
+      </ul>
+      <br>
+      <a href="tel:01039260486" class="btn-booking" style="display: block; text-align: center;">
+          📞 지금 바로 예약 전화하기
+      </a>
+  </div>
+</section>
+
+<footer>
+    <p>© 2026 HWASAHAM Beauty Studio. All rights reserved.</p>
+</footer>
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3>Reservation</h3>
+        <p>원하시는 날짜와 시간을 말씀해 주세요.</p>
+        
+        <ul class="booking-steps">
+            <li>1️⃣ 성함과 연락처</li>
+            <li>2️⃣ 희망 시술 (속눈썹 / 눈썹문신)</li>
+            <li>3️⃣ 희망 날짜 및 시간 (2~3개)</li>
+        </ul>
+
+        <a href="https://pf.kakao.com/_채널아이디" target="_blank" class="btn-kakao">카카오톡으로 예약하기</a>
+        <a href="https://instagram.com/인스타아이디" target="_blank" class="btn-insta">인스타그램 DM 문의</a>
+    </div>
+</div>
+
+
+<script>
+    // 모달 열기/닫기 스크립트
+    function openModal() {
+        document.getElementById('bookingModal').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('bookingModal').style.display = 'none';
+    }
+    // 배경 클릭 시 닫기
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('bookingModal')) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
